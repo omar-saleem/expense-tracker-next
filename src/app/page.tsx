@@ -1,7 +1,27 @@
+'use client'
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useToast } from '@chakra-ui/react'
+import { Button, ButtonGroup } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
+import { IoMdAddCircle } from "react-icons/io";
+import { IoMdTrash } from "react-icons/io";
 
 export default function Home() {
+  const toast = useToast()
+  const createToast = () =>
+    toast({
+      title: 'Welcome to the app.',
+      description: "Timestamp: " + new Date().toLocaleTimeString(),
+      status: 'info',
+      duration: 5000,
+      isClosable: true,
+      position: 'bottom-right',
+    })
+
+  function closeAll() {
+    toast.closeAll()
+  }
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -13,37 +33,26 @@ export default function Home() {
           height={38}
           priority
         />
+        <Text fontSize='3xl' as='b'>This is Chakra UI.</Text>
         <ol>
           <li>
-            Get started by editing <code>src/app/page.tsx</code>.
+            Get started by clicking <code>Toast Me</code>.
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>Close toasts by clicking <code>Toast Away</code>.</li>
         </ol>
 
         <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+          <Button
+            colorScheme='blue'
+            onClick={createToast}
+            leftIcon={<IoMdAddCircle />}
+            px={6}
+          >Toast Me</Button>
+          <Button
+            colorScheme='red'
+            onClick={closeAll}
+            leftIcon={<IoMdTrash />}
+          >Toast Away</Button>
         </div>
       </main>
       <footer className={styles.footer}>
